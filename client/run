@@ -1,0 +1,3 @@
+java -Djava.library.path=libs -cp libs/RXTXcomm.jar:bin sdjug.demo.Receiver
+
+# Make sure on Mac that the direcotry "/var/lock" exists and in readable and writeable
