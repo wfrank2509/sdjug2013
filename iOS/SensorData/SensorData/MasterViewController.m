@@ -65,7 +65,17 @@
 
     NSDictionary *object = self.jsonResultsArray[indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"SensorData: %@", [object objectForKey:@"SensorData"]];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Created: %@", [object objectForKey:@"Timestamp"]];
+
+    long long timestamp = [((NSNumber*)[object objectForKey:@"created"]) longLongValue];
+    // in the API, the time interval is in seconds, not milliseconds
+    NSTimeInterval timeInterval = (double)(timestamp/1000);
+
+    NSDate *theDate = [[NSDate alloc]initWithTimeIntervalSince1970: timeInterval];
+    NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"PST"]];
+    [dateFormat setDateFormat:@"yyyy.MM.dd 'at' HH:mm:ss zzz"];
+    NSString* theDateString = [dateFormat stringFromDate:theDate];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Created: %@", theDateString];
 
     return cell;
 }

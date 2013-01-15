@@ -82,7 +82,7 @@ public class SDJUGBackend extends Verticle {
         return new Handler<Message<JsonObject>>() {
             @Override
             public void handle(final Message<JsonObject> mongoMessage) {
-                System.out.println(mongoMessage.body);
+                //System.out.println(mongoMessage.body);
                 message.reply(mongoMessage.body);
             }
         };

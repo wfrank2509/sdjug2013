@@ -27,6 +27,7 @@ public class SDJUGServer extends Verticle {
         // Hanlde GET request
         routeMatcher.get("/datastore/:collection", new Handler<HttpServerRequest>() {
             public void handle(HttpServerRequest req) {
+                System.out.println("routeMatcher.get");
                 vertx.eventBus().send("sdjug.eventbus.message.load",
                                         new JsonObject().putString("collection", req.params().get("collection")),
                                         createLoadReplyHandler(req));
@@ -36,6 +37,7 @@ public class SDJUGServer extends Verticle {
         // Hanlde POST request
         routeMatcher.post("/datastore/:collection", new Handler<HttpServerRequest>() {
             public void handle(final HttpServerRequest req) {
+                System.out.println("routeMatcher.post");
                 // Read the whole post body via data handler
                 final Buffer body = new Buffer(64);
                 req.dataHandler(new Handler<Buffer>() {
@@ -49,7 +51,9 @@ public class SDJUGServer extends Verticle {
                     public void handle() {
                         JsonObject postJson = new JsonObject(body.toString("UTF-8"));
                         postJson.putString("collection", req.params().get("collection"));
-                        postJson.putNumber("created", new Date().getTime());
+                        if (postJson.getNumber("created") == null) {
+                            postJson.putNumber("created", new Date().getTime());
+                        }
                         vertx.eventBus().send("sdjug.eventbus.message.save", postJson, createSaveReplyHandler(req));
                     }
                 });
@@ -63,7 +67,6 @@ public class SDJUGServer extends Verticle {
           return new Handler<Message<JsonObject>>() {
               @Override
               public void handle(final Message<JsonObject> jsonObjectMessage) {
-                  System.out.println(">>createLoadReplyHandler: " + jsonObjectMessage.body);
                   if (jsonObjectMessage.body.getString("status").equalsIgnoreCase("ok")) {
                       req.response.statusCode = 200;
                       req.response.putHeader("Content-Type", "application/json; charset=UTF-8");

@@ -131,7 +131,7 @@ public class Receiver implements SerialPortEventListener
     JSONObject jo = new JSONObject();
     try
     {
-      jo.put("Timestamp", (new Timestamp(System.currentTimeMillis())).toString());
+      jo.put("created", System.currentTimeMillis());
       jo.put("SensorData", data);
 
       System.out.println(jo.toString());
