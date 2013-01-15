@@ -1,0 +1,6 @@
+{
+    "main": "sdjug.SDJUGBackend",
+    "worker": false,
+    "auto-redeploy": false,
+    "includes" : "vertx.mongo-persistor-v1.2.1"
+}

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="vertx-platform-1.3.0.final">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/vert-x/vertx-platform/1.3.0.final/vertx-platform-1.3.0.final.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

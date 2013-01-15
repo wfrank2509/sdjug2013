@@ -1,0 +1,5 @@
+{
+  "main": "sdjug.SDJUGBackend",
+  "worker": false,
+  "auto-redeploy": false
+}

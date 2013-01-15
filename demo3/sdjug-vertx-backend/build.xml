@@ -1,0 +1,25 @@
+<project>
+
+    <target name="stopVertx">
+        <exec executable="jps" output="pid.out.file"/>
+        <loadfile srcfile="pid.out.file" property="pid.out">
+            <filterchain>
+                <linecontains>
+                    <contains value="Starter"/>
+                </linecontains>
+                <tokenfilter>
+                    <deletecharacters chars="Starter"/>
+                    <trim/>
+                    <ignoreblank/>
+                </tokenfilter>
+                <striplinebreaks/>
+            </filterchain>
+        </loadfile>
+        <echo message="Killing instance with PID - '${pid.out}' "/>
+        <exec executable="kill">
+            <arg value="${pid.out}"/>
+        </exec>
+        <delete file="pid.out.file"/>
+    </target>
+
+</project>
