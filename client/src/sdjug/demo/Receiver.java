@@ -24,7 +24,7 @@ public class Receiver implements SerialPortEventListener
   SerialPort serialPort;
   /** The port we're normally going to use. */
 
-  private static final String PORT_NAMES[] = {"/dev/tty.usbmodem1411", // Mac OS X
+  private static final String PORT_NAMES[] = {"/dev/tty.usbmodemfd131", // Mac OS X
       "/dev/ttyUSB0", // Linux
       "COM3", // Windows
   };
